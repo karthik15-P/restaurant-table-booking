@@ -1,2 +1,14 @@
+[project]
+name = "restaurant-table-booking"
+version = "1.0.0"
+description = "Restaurant Table Booking Application"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "Flask",
+    "Flask-SQLAlchemy",
+    "Flask-Login",
+    "Werkzeug"
+]
+
 [tool.vercel]
 entrypoint = "application:app"
