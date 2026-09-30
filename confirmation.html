@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Booking Confirmed | TableReserve{% endblock %}
+
+{% block content %}
+<section class="confirmation-section">
+    <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        <p class="eyebrow">RESERVATION CONFIRMED</p>
+        <h1>Your table is booked.</h1>
+        <p class="muted">Please keep your booking details for reference.</p>
+
+        <div class="booking-id">Booking ID: <strong>RB-{{ "%06d"|format(booking.id) }}</strong></div>
+
+        <div class="details-grid">
+            <div><span>Customer</span><strong>{{ booking.customer_name }}</strong></div>
+            <div><span>Phone</span><strong>{{ booking.phone }}</strong></div>
+            <div><span>Date</span><strong>{{ booking.booking_date.strftime('%d %B %Y') }}</strong></div>
+            <div><span>Time</span><strong>{{ booking.booking_time.strftime('%I:%M %p') }}</strong></div>
+            <div><span>Table</span><strong>Table {{ booking.table.table_number }}</strong></div>
+            <div><span>Guests</span><strong>{{ booking.guests }}</strong></div>
+        </div>
+
+        <div class="confirmation-actions">
+            <a class="btn" href="{{ url_for('index') }}">Back to Tables</a>
+        </div>
+
+        <p class="cancellation-note">For booking cancellation call <strong>8977569417</strong></p>
+    </div>
+</section>
+{% endblock %}

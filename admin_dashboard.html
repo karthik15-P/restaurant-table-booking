@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | TableReserve{% endblock %}
+
+{% block content %}
+<section class="admin-page">
+    <div class="admin-top">
+        <div>
+            <p class="eyebrow">ADMINISTRATION</p>
+            <h1>Booking Dashboard</h1>
+            <p class="muted">Manage restaurant reservations and cancellations.</p>
+        </div>
+        <a class="btn secondary" href="{{ url_for('admin_logout') }}">Logout</a>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card"><span>Total Tables</span><strong>{{ tables|length }}</strong></div>
+        <div class="stat-card"><span>Total Bookings</span><strong>{{ bookings|length }}</strong></div>
+        <div class="stat-card"><span>Confirmed</span><strong>{{ bookings|selectattr('status', 'equalto', 'Confirmed')|list|length }}</strong></div>
+        <div class="stat-card"><span>Cancelled</span><strong>{{ bookings|selectattr('status', 'equalto', 'Cancelled')|list|length }}</strong></div>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-heading">
+            <h2>All Bookings</h2>
+            <span>Cancellation is admin-only</span>
+        </div>
+
+        {% if bookings %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Customer</th>
+                        <th>Contact</th>
+                        <th>Table</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Guests</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>RB-{{ "%06d"|format(booking.id) }}</td>
+                        <td>{{ booking.customer_name }}</td>
+                        <td>{{ booking.phone }}<br><small>{{ booking.email }}</small></td>
+                        <td>Table {{ booking.table.table_number }}</td>
+                        <td>{{ booking.booking_date.strftime('%d %b %Y') }}</td>
+                        <td>{{ booking.booking_time.strftime('%I:%M %p') }}</td>
+                        <td>{{ booking.guests }}</td>
+                        <td>
+                            <span class="status {{ booking.status|lower }}">{{ booking.status }}</span>
+                        </td>
+                        <td>
+                            {% if booking.status == "Confirmed" %}
+                            <form method="POST" action="{{ url_for('cancel_booking', booking_id=booking.id) }}"
+                                  onsubmit="return confirm('Cancel this booking?');">
+                                <button class="cancel-btn" type="submit">Cancel</button>
+                            </form>
+                            {% else %}
+                            <span class="muted">No action</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <div class="empty-state">No bookings have been made yet.</div>
+        {% endif %}
+    </div>
+
+    <p class="cancellation-note admin-note">Customer cancellation requests: <strong>8977569417</strong></p>
+</section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Book Table {{ table.table_number }} | TableReserve{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-card">
+        <div class="form-header">
+            <p class="eyebrow">RESERVATION</p>
+            <h1>Book Table {{ table.table_number }}</h1>
+            <p>Capacity: up to {{ table.capacity }} guests</p>
+        </div>
+
+        <form method="POST" onsubmit="return validateBookingForm()">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="name">Full Name *</label>
+                    <input id="name" name="name" type="text" maxlength="100" required>
+                </div>
+
+                <div class="field">
+                    <label for="phone">Phone Number *</label>
+                    <input id="phone" name="phone" type="tel" inputmode="numeric" maxlength="10"
+                           placeholder="10-digit mobile number" required>
+                </div>
+
+                <div class="field full">
+                    <label for="email">Email Address *</label>
+                    <input id="email" name="email" type="email" maxlength="120"
+                           placeholder="you@example.com" required>
+                </div>
+
+                <div class="field">
+                    <label for="booking_date">Date *</label>
+                    <input id="booking_date" name="booking_date" type="date" min="{{ today }}" required>
+                </div>
+
+                <div class="field">
+                    <label for="booking_time">Time *</label>
+                    <input id="booking_time" name="booking_time" type="time" required>
+                </div>
+
+                <div class="field">
+                    <label for="guests">Number of Guests *</label>
+                    <input id="guests" name="guests" type="number" min="1" max="{{ table.capacity }}" required>
+                    <small>Maximum {{ table.capacity }} guests for this table.</small>
+                </div>
+
+                <div class="field">
+                    <label>Selected Table</label>
+                    <div class="selected-table">Table {{ table.table_number }} · {{ table.capacity }} seats</div>
+                </div>
+            </div>
+
+            <button class="btn btn-large" type="submit">Confirm Booking</button>
+        </form>
+
+        <p class="cancellation-note">For booking cancellation call <strong>8977569417</strong></p>
+    </div>
+</section>
+{% endblock %}

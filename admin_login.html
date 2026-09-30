@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Admin Login | TableReserve{% endblock %}
+
+{% block content %}
+<section class="admin-login">
+    <div class="login-card">
+        <p class="eyebrow">RESTRICTED AREA</p>
+        <h1>Admin Login</h1>
+        <p class="muted">Only authorized restaurant administrators can access bookings and cancellation controls.</p>
+
+        <form method="POST">
+            <div class="field">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+            </div>
+
+            <button class="btn btn-large" type="submit">Sign In</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

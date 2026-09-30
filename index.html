@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Book a Table | TableReserve{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">RESTAURANT TABLE BOOKING</p>
+        <h1>Reserve your table<br><span>in a few clicks.</span></h1>
+        <p class="hero-text">Choose a table that suits your group, select your date and time, and confirm your reservation.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">TABLES</p>
+            <h2>Choose your table</h2>
+        </div>
+        <div class="legend">
+            <span><i class="available-dot"></i> Available to reserve</span>
+            <span><i class="capacity-dot"></i> Seating capacity</span>
+        </div>
+    </div>
+
+    <div class="table-layout">
+        {% for table in tables %}
+        <article class="table-card">
+            <div class="table-visual">
+                <div class="chair c1"></div>
+                <div class="chair c2"></div>
+                <div class="chair c3"></div>
+                <div class="chair c4"></div>
+                <div class="round-table">
+                    <span>TABLE {{ table.table_number }}</span>
+                </div>
+            </div>
+            <div class="table-info">
+                <div>
+                    <h3>Table {{ table.table_number }}</h3>
+                    <p>Seats up to {{ table.capacity }} guests</p>
+                </div>
+                <a class="btn" href="{{ url_for('booking', table_id=table.id) }}">Book Table</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
