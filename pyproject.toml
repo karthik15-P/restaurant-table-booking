@@ -9,6 +9,5 @@ dependencies = [
     "Flask-Login",
     "Werkzeug"
 ]
-
 [tool.vercel]
 entrypoint = "application:app"
